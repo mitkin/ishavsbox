@@ -1,0 +1,8 @@
+
+---
+- hosts: all
+  user: vagrant
+  sudo: yes
+  tasks:
+    - name: python-numpy
+      apt: pkg=python-numpy state=installed update_cache=true
