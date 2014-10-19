@@ -40,7 +40,7 @@
     - name: install JPY
       shell: python setup.py install 
       environment:
-          JAVA_HOME: /usr/lib/jvm/java-8-oracle
+          JAVA_HOME: /usr/lib/jvm/java-7-oracle
       args:
           chdir: jpy-master
 
