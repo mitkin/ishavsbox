@@ -16,6 +16,12 @@
         - git
         - unzip
 
+    - name: (Pip) install behave
+      pip: name={{ item }}
+      with_items:
+        - nose
+        - behave
+
     - name: Add Java repository to sources
       action: apt_repository repo='ppa:webupd8team/java'
      
@@ -35,7 +41,7 @@
       shell: wget https://www.dropbox.com/s/qh27h1a9za0rn55/jpy-master.zip -O /tmp/jpy-master.zip
 
     - name: extract JPY from archive
-      shell: unzip /tmp/jpy-master.zip -d /home
+      shell: unzip /tmp/jpy-master.zip -d /home/vagrant
 
     - name: install JPY
       shell: python setup.py install 
