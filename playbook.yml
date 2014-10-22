@@ -32,20 +32,23 @@
       action: apt pkg=oracle-java7-set-default state=latest install_recommends=yes
 
     - name: download JPY
-      shell: wget https://www.dropbox.com/s/qh27h1a9za0rn55/jpy-master.zip
+      shell: wget https://www.dropbox.com/s/qh27h1a9za0rn55/jpy-master.zip -O /tmp/jpy-master.zip
 
     - name: extract JPY from archive
-      unarchive: src=jpy-master.zip dest=/home/vagrant copy=no
-     
+      shell: unzip /tmp/jpy-master.zip -d /home
+
     - name: install JPY
       shell: python setup.py install 
       environment:
           JAVA_HOME: /usr/lib/jvm/java-7-oracle
       args:
-          chdir: jpy-master
+          chdir: /home/vagrant/jpy-master
 
-    - name: copy Beam
-      unarchive: src=beam-5.0.4.tar.gz dest=/home/vagrant
+    - name: Retrieve Beam from Dropbox
+      shell: wget https://www.dropbox.com/s/hzqwnict6xz44zk/beam-5.0.4.tar.gz -O /tmp/beam-5.0.4.tar.gz
+
+    - name: Extract Beam
+      shell: tar -zxvf /tmp/beam-5.0.4.tar.gz --directory=/home/vagrant
 
     - name: install beampy
       shell: python setup.py install
