@@ -19,6 +19,9 @@
         group=mikhaili
         groups="sudo"
 
+    - name: Add multiverse repos (required for virtualbox guest stuff)
+      apt_repository: repo='deb http://archive.ubuntu.com/ubuntu trusty multiverse' state=present
+
     - name: install system packages
       apt: name={{ item }} state=latest update_cache=yes
       with_items:
@@ -48,6 +51,7 @@
       with_items:
         - python-numpy
         - python-pyproj
+
     - name: Add Java repository to sources
       action: apt_repository repo='ppa:webupd8team/java'
 
