@@ -6,7 +6,7 @@
   vars:
   # created with:
   # python -c 'import crypt; print crypt.crypt("somepass", "$somesalt$")'
-    password: $1$salty$zpQ5Qp3lt02niRfob7iIX1 
+    password: $1$salty$zpQ5Qp3lt02niRfob7iIX1
 
   tasks:
     - name: Set user group
@@ -26,19 +26,21 @@
       apt: name={{ item }} state=latest update_cache=yes
       with_items:
         - xinit
+        - git
+        - x11-xserver-utils
         - fluxbox
+        - unzip
+        - terminator
         - virtualbox-guest-utils
         - virtualbox-guest-x11
         - virtualbox-guest-dkms
 
-    - name: ensure required packages are installed for Java 7
+    - name: ensure required packages are installed (for jpy installation)
       apt: name={{ item }} state=latest update_cache=yes
       with_items:
         - python-software-properties
         - python-pip
         - python-dev
-        - git
-        - unzip
 
     - name: (Pip) install behave
       pip: name={{ item }}
@@ -51,6 +53,21 @@
       with_items:
         - python-numpy
         - python-pyproj
+		- ipython
+		- python-scipy
+        - python-mpltoolkits.basemap
+        - python-matplotlib
+        - python-h5py
+        - python-gdal
+        - texlive-science
+        - libhdf5-dev
+        - libnetcdf-dev
+
+    - name: Work related pip packages
+      pip: name={{ item }}
+      with_items:
+        - netCDF4
+        - pyresample
 
     - name: Add Java repository to sources
       action: apt_repository repo='ppa:webupd8team/java'
@@ -63,7 +80,7 @@
 
     - name: Install Java 7
       action: apt pkg=oracle-java7-installer state=latest install_recommends=yes
-     
+
     - name: Set Java 7 Env
       action: apt pkg=oracle-java7-set-default state=latest install_recommends=yes
 
@@ -74,7 +91,7 @@
       shell: unzip /tmp/jpy-master.zip -d /home/vagrant
 
     - name: install JPY
-      shell: python setup.py install 
+      shell: python setup.py install
       environment:
           JAVA_HOME: /usr/lib/jvm/java-7-oracle
       args:
@@ -95,5 +112,3 @@
           BEAM_HOME: /home/vagrant/beam-5.0
       args:
           chdir: /home/vagrant/beam-5.0/modules/beam-python-5.0.4/beampy
-
-
