@@ -9,6 +9,8 @@
     password: $1$salty$zpQ5Qp3lt02niRfob7iIX1 
 
   tasks:
+    - name: Set user group
+      group: name=mikhaili state=present
     - name: Set new user
       user:
         name=mikhaili
@@ -17,6 +19,14 @@
         group=mikhaili
         groups="sudo"
 
+    - name: install system packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - xinit
+        - fluxbox
+        - virtualbox-guest-utils
+        - virtualbox-guest-x11
+        - virtualbox-guest-dkms
 
     - name: ensure required packages are installed for Java 7
       apt: name={{ item }} state=latest update_cache=yes
@@ -33,15 +43,20 @@
         - nose
         - behave
 
+    - name: general useful packages
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - python-numpy
+        - python-pyproj
     - name: Add Java repository to sources
       action: apt_repository repo='ppa:webupd8team/java'
-     
+
     - name: Autoaccept license for Java
       action: shell echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
-     
+
     - name: Update APT package cache
       action: apt update_cache=yes
-     
+
     - name: Install Java 7
       action: apt pkg=oracle-java7-installer state=latest install_recommends=yes
      
@@ -77,8 +92,4 @@
       args:
           chdir: /home/vagrant/beam-5.0/modules/beam-python-5.0.4/beampy
 
-    - name: general useful packages
-      apt: name={{ item }} state=latest update_cache=yes
-      with_items:
-        - python-numpy
-        - python-pyproj
+
