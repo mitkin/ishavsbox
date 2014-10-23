@@ -39,8 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "/vol", "/host_vol"
-  config.vm.synced_folder "/disk1", "/host_disk1"
+  config.vm.synced_folder "/vol", "/host_vol", mount_options: ["dmode=777", "fmode=666"], owner: "mikhaili", group: "mikhaili"
+  config.vm.synced_folder "/disk1", "/host_disk1", mount_options: ["dmode=777", "fmode=666"], owner: "mikhaili", group: "mikhaili"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
