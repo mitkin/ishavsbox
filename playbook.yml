@@ -18,6 +18,15 @@
         state=present
         group=mikhaili
         groups="sudo"
+        shell=/bin/bash
+
+    - name: ensure required packages are installed (for jpy installation)
+      apt: name={{ item }} state=latest update_cache=yes
+      with_items:
+        - python-software-properties
+        - python-pip
+        - python-dev
+        - python-pycurl
 
     - name: Add multiverse repos (required for virtualbox guest stuff)
       apt_repository: repo='deb http://archive.ubuntu.com/ubuntu trusty multiverse' state=present
@@ -35,12 +44,6 @@
         - virtualbox-guest-x11
         - virtualbox-guest-dkms
 
-    - name: ensure required packages are installed (for jpy installation)
-      apt: name={{ item }} state=latest update_cache=yes
-      with_items:
-        - python-software-properties
-        - python-pip
-        - python-dev
 
     - name: (Pip) install behave
       pip: name={{ item }}
@@ -53,8 +56,8 @@
       with_items:
         - python-numpy
         - python-pyproj
-		- ipython
-		- python-scipy
+        - ipython
+        - python-scipy
         - python-mpltoolkits.basemap
         - python-matplotlib
         - python-h5py
