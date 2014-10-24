@@ -1,0 +1,20 @@
+---
+- name: general useful packages
+  apt: name={{ item }} state=latest update_cache=yes
+  with_items:
+    - python-numpy
+    - python-pyproj
+    - ipython
+    - python-scipy
+    - python-mpltoolkits.basemap
+    - python-matplotlib
+    - python-h5py
+    - python-gdal
+    - libhdf5-dev
+    - libnetcdf-dev
+    
+- name: Work related pip packages
+  pip: name={{ item }}
+  with_items:
+    - netCDF4
+    - pyresample

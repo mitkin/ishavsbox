@@ -1,0 +1,29 @@
+---
+- name: download JPY
+  shell: wget https://www.dropbox.com/s/qh27h1a9za0rn55/jpy-master.zip -O /tmp/jpy-master.zip
+
+- name: extract JPY from archive
+  shell: unzip /tmp/jpy-master.zip -d /home/vagrant
+
+- name: install JPY
+  shell: python setup.py install
+  environment:
+      JAVA_HOME: /usr/lib/jvm/java-7-oracle
+  args:
+      chdir: /home/vagrant/jpy-master
+
+- name: remove JPY installation files
+  shell: rm -rf /home/vagrant/jpy-master
+
+- name: Retrieve Beam from Dropbox
+  shell: wget https://www.dropbox.com/s/hzqwnict6xz44zk/beam-5.0.4.tar.gz -O /tmp/beam-5.0.4.tar.gz
+
+- name: Extract Beam
+  shell: tar -zxvf /tmp/beam-5.0.4.tar.gz --directory=/home/vagrant
+
+- name: install beampy
+  shell: python setup.py install
+  environment:
+      BEAM_HOME: /home/vagrant/beam-5.0
+  args:
+      chdir: /home/vagrant/beam-5.0/modules/beam-python-5.0.4/beampy
