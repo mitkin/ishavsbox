@@ -39,8 +39,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "/vol", "/host_vol", mount_options: ["dmode=777", "fmode=666"], owner: "mikhaili", group: "mikhaili"
-  config.vm.synced_folder "/disk1", "/host_disk1", mount_options: ["dmode=777", "fmode=666"], owner: "mikhaili", group: "mikhaili"
+  config.vm.synced_folder "/vol", "/host_vol", mount_options: ["dmode=776", "fmode=666"]
+  config.vm.synced_folder "/disk1", "/host_disk1", mount_options: ["dmode=776", "fmode=666"]
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -51,7 +51,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.gui = true
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-      vb.customize ["modifyvm", :id, "--memory", "2048"]
+      vb.customize ["modifyvm", :id, "--memory", "4096"]
+      vb.customize ["modifyvm", :id, "--cpus", "2"]
+      vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+      vb.customize ["modifyvm", :id, "--ioapic", "on"]
+      vb.customize ["modifyvm", :id, "--vram", "64"]
+      vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
+      vb.customize ["modifyvm", :id, "--nestedpaging", "on"]
   end
   #
   # View the documentation for the provider you're using for more
