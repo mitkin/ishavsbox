@@ -12,7 +12,7 @@
     - python-gdal
     - libhdf5-dev
     - libnetcdf-dev
-    
+
 - name: Work related pip packages
   pip: name={{ item }}
   with_items:

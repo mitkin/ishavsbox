@@ -1,0 +1,6 @@
+---
+- hosts: ishavsbox-remote
+  user: mikhaili
+  sudo: yes
+  roles:
+    - role: pyscibox
