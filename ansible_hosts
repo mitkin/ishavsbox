@@ -9,8 +9,11 @@
 #   - A hostname/ip can be a member of multiple groups
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
-[ishavsbox]
+[ishavsbox-remote]
 192.168.33.10
+
+[localbox]
+localhost   ansible_connection=local
 #green.example.com
 #blue.example.com
 #192.168.100.1
