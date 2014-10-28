@@ -48,14 +48,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provider "virtualbox" do |vb|
       # Don't boot with headless mode
-      vb.gui = true
+      vb.gui = false
   #
   #   # Use VBoxManage to customize the VM. For example to change memory:
-      vb.customize ["modifyvm", :id, "--memory", "4096"]
+      vb.customize ["modifyvm", :id, "--memory", "2048"]
       vb.customize ["modifyvm", :id, "--cpus", "2"]
-      vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+      vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
       vb.customize ["modifyvm", :id, "--ioapic", "on"]
-      vb.customize ["modifyvm", :id, "--vram", "64"]
+      vb.customize ["modifyvm", :id, "--vram", "32"]
       vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
       vb.customize ["modifyvm", :id, "--nestedpaging", "on"]
   end
